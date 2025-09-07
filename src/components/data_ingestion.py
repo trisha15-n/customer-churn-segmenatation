@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from src.exception import CustomException
 from src.logger import logging
+from src.components.data_transformation import DataTransformation
 
 class DataIngestionConfig:
   raw_data_path: str = os.path.join("artifacts", "data.csv")
@@ -44,3 +45,12 @@ if __name__ == "__main__":
   train_data, test_data = obj.initiate_data_ingestion()
   print("Data Ingestion Completed.")
       
+  train_path = "artifacts/train.csv" 
+  test_path = "artifacts/test.csv"
+
+  transformer = DataTransformation()
+  X_train, X_test, y_train, y_test, preprocessor_path = transformer.initiate_data_transformation(
+        train_path, test_path
+    )
+
+  print("Data Transformation Done.")  
