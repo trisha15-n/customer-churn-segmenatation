@@ -13,6 +13,7 @@ from src.logger import logging
 
 class DataTransformation:
   def __init__(self):
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     self.preprocessor_file_path = os.path.join("artifacts", "preprocessor.pkl")
 
   def get_data_transformation_object(self, numerical_cols, categorical_cols):
@@ -67,6 +68,9 @@ class DataTransformation:
       X_test = preprocessing_obj.transform(X_test)
 
       logging.info("Applied Preprocessing.")
+
+      os.makedirs(os.path.dirname(self.preprocessor_file_path), exist_ok=True)
+
 
       with open(self.preprocessor_file_path, 'wb') as f:
         pickle.dump(preprocessing_obj,f)
