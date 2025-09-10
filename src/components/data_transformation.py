@@ -47,6 +47,13 @@ class DataTransformation:
       logging.info("Read train and test data")
 
       target_column = "Churn"
+
+      if "customerID" in train_df.columns:
+                train_df = train_df.drop(columns=["customerID"])
+      if "customerID" in test_df.columns:
+                test_df = test_df.drop(columns=["customerID"])
+
+
       numerical_cols = train_df.select_dtypes(include=["int64", "float64"]).columns.tolist()
 
       categorical_cols = train_df.select_dtypes(include=['object']).columns.tolist()
